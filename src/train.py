@@ -14,6 +14,8 @@ import os.path as osp
 import matplotlib.pyplot as plt
 import numpy as np
 
+import pickle
+
 # transformer, rnn, lstm
 model_slt= "transformer"
 
@@ -141,6 +143,12 @@ for epoch in range(1, args.epochs+1):
 print(f"Train Perpelexity {train_perplexity}")
 print(f"Valid Perpelexity {valid_perplexity}")
 
+def save_model(model, filename="model.pth", save_dir="."):
+    os.makedirs(save_dir, exist_ok=True)
+    filepath = os.path.join(save_dir, filename)
+    torch.save(model.state_dict(), filepath)
+    print(f"Model saved to {filepath}")
+
 def plot_train_perpelexity():
     x = np.arange(1, args.epochs + 1)
     plt.plot(x, train_perplexity, label='Train Perplexity')
@@ -159,3 +167,8 @@ def print_args():
 
 print_args()
 plot_train_perpelexity()
+save_model(model, f"trained_lm_model_{model_slt}.pth",save_dir="../models")
+
+with open('training_args.pkl', 'wb') as f:
+    pickle.dump(args, f)
+print("Training arguments saved to training_args.pkl")
