@@ -5,11 +5,24 @@
 - In `train.py`： Modify the model initialization to use three different models: `transformer`, `RNN`, and `LSTM`.
 
 ## Result0
-<div>
-    <img src="./pic/arg0.png" alt="First Train args" title="First Train args" style="display: block; margin-bottom: 10px;">
-    <img src="./pic/transformer_arg0.png" alt="Second Train args" title="Second Train args" style="display: block; margin-bottom: 10px;">
-    <img src="./pic/RNN_arg0.png" alt="Third Train args" title="Third Train args" style="display: block; margin-bottom: 10px;">
-    <img src="./pic/LSTM_arg0.png" alt="Fourth Train args" title="Fourth Train args" style="display: block; margin-bottom: 10px;">
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; justify-items: center; align-items: start;">
+    <figure style="margin: 0; padding: 0;">
+        <img src="./pic/arg0.png" alt="First Train args" style="display: block; max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px; padding: 4px; box-sizing: border-box;">
+        <figcaption style="text-align: center; font-style: italic; font-size: 1.5em; color: #001; margin-top: 10px; text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);">First Train args</figcaption>
+    </figure>
+    <figure style="margin: 0; padding: 0;">
+        <img src="./pic/transformer_arg0.png" alt="Transformer Train args" style="display: block; max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px; padding: 4px; box-sizing: border-box;">
+        <figcaption style="text-align: center; font-style: italic; font-size: 1.5em; color: #001; margin-top: 10px; text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);">Transformer Train args</figcaption>
+    </figure>
+    <figure style="margin: 0; padding: 0;">
+        <img src="./pic/RNN_arg0.png" alt="RNN Train args" style="display: block; max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px; padding: 4px; box-sizing: border-box;">
+        <figcaption style="text-align: center; font-style: italic; font-size: 1.5em; color: #001; margin-top: 10px; text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);">RNN Train args</figcaption>
+    </figure>
+    <figure style="margin: 0; padding: 0;">
+        <img src="./pic/LSTM_arg0.png" alt="LSTM Train args" style="display: block; max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px; padding: 4px; box-sizing: border-box;">
+        <figcaption style="text-align: center; font-style: italic; font-size: 1.5em; color: #001; margin-top: 10px; text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);">LSTM Train args</figcaption>
+    </figure>
 </div>
 
 ## TODO
