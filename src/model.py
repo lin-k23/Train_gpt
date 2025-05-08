@@ -15,7 +15,9 @@ class LMModel_transformer(nn.Module):
         # WRITE CODE HERE witnin two '#' bar
         ########################################
         # Construct you Transformer model here. You can add additional parameters to the function.
-
+        self.dim = dim
+        self.transformer_encoder_layer = nn.TransformerEncoderLayer(d_model=dim, nhead=nhead)
+        self.transformer_encoder = nn.TransformerEncoder(self.transformer_encoder_layer, num_layers=num_layers)
         ########################################
 
         self.decoder = nn.Linear(dim, nvoc)
@@ -39,7 +41,7 @@ class LMModel_transformer(nn.Module):
         src_mask = torch.triu(torch.ones(L, L) * float('-inf'), diagonal=1).to(input.device.type)
         src = embeddings * math.sqrt(self.dim)
         #TODO: use your defined transformer, and use the mask.
-        
+        output = self.transformer_encoder(src, mask=src_mask)
 
 
         ########################################
@@ -60,7 +62,14 @@ class LMModel_RNN(nn.Module):
         self.encoder = nn.Embedding(nvoc, dim)
         ########################################
         # Construct your RNN model here.
-
+        self.rnn=nn.RNN(
+            input_size=dim,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            dropout=dropout,
+        )
+        self.hidden_size = hidden_size
+        self.num_layers = num_layers
         ########################################
         self.decoder = nn.Linear(hidden_size, nvoc)
         self.init_weights()
@@ -98,7 +107,14 @@ class LMModel_LSTM(nn.Module):
         self.encoder = nn.Embedding(nvoc, dim)
         ########################################
         # Construct your LSTM model here.
-
+        self.lstm=nn.LSTM(
+            input_size=dim,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            dropout=dropout,
+        )
+        self.hidden_size = hidden_size
+        self.num_layers = num_layers
         ########################################
         self.decoder = nn.Linear(hidden_size, nvoc)
         self.init_weights()

@@ -2,9 +2,9 @@
 # @Author   : Kun Lin
 # @Filename : test.py.py
 
-import os
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
 
 import torch
 print(torch.__version__)
+
+if torch.cuda.is_available():
+    print('CUDA works')

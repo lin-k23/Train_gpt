@@ -11,6 +11,12 @@ import model
 import os
 import os.path as osp
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+# transformer, rnn, lstm
+model_slt= "transformer"
+
 parser = argparse.ArgumentParser(description='PyTorch ptb Language Model')
 parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
@@ -51,8 +57,17 @@ data_loader = data.Corpus("../data/ptb", batch_size, args.max_sql)
 
 ########################################
 # Build LMModel model (bulid your language model here)
-model = model.LMModel_transformer(nvoc = len(data_loader.vocabulary), num_layers = args.num_layers,
+if model_slt == "transformer":
+    model = model.LMModel_transformer(nvoc = len(data_loader.vocabulary), num_layers = args.num_layers,
                       dim = args.emb_dim, nhead = args.num_heads)
+elif model_slt == "rnn":
+    model = model.LMModel_RNN(nvoc=len(data_loader.vocabulary), num_layers=args.num_layers,
+                              dim=args.emb_dim)
+elif model_slt == "lstm":
+    model = model.LMModel_LSTM(nvoc=len(data_loader.vocabulary), num_layers=args.num_layers,
+                               dim=args.emb_dim)
+else:
+    raise ValueError(f"Unknown model type: {model_slt}")
 model = model.to(device)
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
@@ -74,7 +89,10 @@ def evaluate():
             data, target, end_flag = data_loader.get_batch()
             data = data.to(device)
             target = target.to(device)
-            decode = model(data)
+            if model_slt != "transformer":
+                decode,_ = model(data)
+            else:
+                decode = model(data)
 
             # Calculate cross-entropy loss
             loss = criterion(decode.view(decode.size(0) * decode.size(1), -1), target)
@@ -95,7 +113,10 @@ def train():
         data, target, end_flag = data_loader.get_batch()
         data = data.to(device)
         target = target.to(device)
-        decode = model(data)
+        if model_slt != "transformer":
+            decode, _ = model(data)
+        else:
+            decode = model(data)
 
         # Calculate cross-entropy loss
         optimizer.zero_grad()
@@ -120,3 +141,21 @@ for epoch in range(1, args.epochs+1):
 print(f"Train Perpelexity {train_perplexity}")
 print(f"Valid Perpelexity {valid_perplexity}")
 
+def plot_train_perpelexity():
+    x = np.arange(1, args.epochs + 1)
+    plt.plot(x, train_perplexity, label='Train Perplexity')
+    plt.plot(x, valid_perplexity, label='Valid Perplexity')
+    plt.xlabel('Epochs')
+    plt.ylabel('Perplexity')
+    plt.title('Train and Valid Perplexity')
+    plt.legend()
+    plt.show()
+
+# 打印train.py 的参数
+def print_args():
+    print("args:")
+    for arg in vars(args):
+        print(f"{arg}: {getattr(args, arg)}")
+
+print_args()
+plot_train_perpelexity()
