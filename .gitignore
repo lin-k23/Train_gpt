@@ -1,1 +1,5 @@
 .idea/
+/models/models--gpt2/refs/main
+/models/models--gpt2/blobs/248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707.incomplete
+/models/.locks/models--gpt2/248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707.lock
+/models/models--gpt2/snapshots/607a30d783dfa663caf39e06633721c8d4cfcd7e/config.json
