@@ -1,6 +1,6 @@
 # @Time     : 2025/5/20 13:46
 # @Author   : Kun Lin
-# @Filename : main.py
+# @Filename : ft_MSMathProblem.py
 # Corrected version for fine-tuning GPT-2 on math word problems
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, DataCollatorForLanguageModeling
@@ -14,7 +14,7 @@ custom_cache_dir = "../models"
 dataset_cache_dir = "../datasets/orca-math-word-problems-200k"
 output_dir = "../res"
 logging_dir = '../logs'
-model_name = "gpt2" # Or "gpt2-medium", "gpt2-large", etc.
+model_name = "gpt2-medium" # Or "gpt2-medium", "gpt2-large", etc.
 
 # Create cache directories if they don't exist
 if not os.path.exists(custom_cache_dir):
